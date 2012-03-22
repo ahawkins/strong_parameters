@@ -65,7 +65,9 @@ module ActionController
     extend ActiveSupport::Concern
 
     included do
-      rescue_from(ActionController::ParameterMissing) { head :bad_request }
+      rescue_from(ActionController::ParameterMissing) do |ex|
+        render :text => ex, :status => :bad_request
+      end
     end
 
     def params

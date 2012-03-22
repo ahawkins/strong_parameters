@@ -17,6 +17,11 @@ class ActionControllerRequiredParamsTest < ActionController::TestCase
     post :create, { book: { title: "Mjallo!" } }
     assert_response :bad_request
   end
+
+  test "missing required parameters will be included in the respone" do
+    post :create, { magazine: { name: "Mjallo!" } }
+    assert_match /book/, response.body
+  end
   
   test "required parameters that are present will not raise" do
     post :create, { book: { name: "Mjallo!" } }
